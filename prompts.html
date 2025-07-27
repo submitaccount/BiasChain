@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prompt Templates</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.6;
+            background-color: #fdfdfd;
+            color: #333;
+            margin: 0;
+            padding: 2em;
+        }
+
+        main {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        h2, h3, h4 {
+            color: MidnightBlue;
+            border-bottom: 1px solid #e0e0e0;
+            padding-bottom: 0.3em;
+            margin-top: 2em;
+        }
+
+        h3 {
+            color: #2c3e50;
+        }
+        
+        h4 {
+            color: #34495e;
+            border-bottom: none;
+            font-size: 1.1em;
+            margin-bottom: 0.5em;
+        }
+
+        strong {
+            color: #34495e;
+        }
+
+        pre {
+            background-color: #f4f7f9;
+            border: 1px solid #d3dce6;
+            border-radius: 6px;
+            padding: 16px;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.9em;
+            white-space: pre-wrap;
+            overflow-x: auto;
+            margin-bottom: 1.5em;
+        }
+
+        .code-block .kw { color: #9b59b6; font-weight: bold; } 
+        .code-block .cn { color: #2980b9; } 
+        .code-block .dt { color: #16a085; } 
+        .code-block .st { color: #c0392b; } 
+        .code-block .punc { color: #7f8c8d; } 
+        .code-block .arg { color: #e67e22; } 
+        .code-block .op { color: #7f8c8d; } 
+    </style>
+</head>
+<body>
+    <main>
+        <h2>3. Prompt Templates</h2>
+
+        <hr>
+
+        <h3>3.1 Sentiment and Tone Analysis</h3>
+        <h4>Schema Definition:</h4>
+        <pre class="code-block"><code><span class="kw">class</span> <span class="cn">JsonSchema</span><span class="punc">(</span><span class="cn">BaseModel</span><span class="punc">):</span>
+    sentiment<span class="punc">:</span> <span class="dt">Literal</span><span class="punc">[</span><span class="st">'Positive'</span><span class="punc">,</span> <span class="st">'Negative'</span><span class="punc">,</span> <span class="st">'Neutral'</span><span class="punc">]</span> <span class="op">=</span> <span class="cn">Field</span><span class="punc">(</span><span class="arg">description</span><span class="op">=</span><span class="st">"The sentiment of the review"</span><span class="punc">)</span>
+    sentiment_reason<span class="punc">:</span> <span class="dt">str</span> <span class="op">=</span> <span class="cn">Field</span><span class="punc">(</span><span class="arg">description</span><span class="op">=</span><span class="st">"A concise explanation justifying the detected sentiment based on the review's language, tone, and choice of words"</span><span class="punc">)</span>
+    tone<span class="punc">:</span> <span class="dt">Literal</span><span class="punc">[</span><span class="st">'Formal'</span><span class="punc">,</span> <span class="st">'Informal'</span><span class="punc">,</span> <span class="st">'Neutral'</span><span class="punc">,</span> <span class="st">'Supportive'</span><span class="punc">,</span> <span class="st">'Critical'</span><span class="punc">,</span> <span class="st">'Balanced'</span><span class="punc">]</span> <span class="op">=</span> <span class="cn">Field</span><span class="punc">(</span><span class="arg">description</span><span class="op">=</span><span class="st">"The tone of the review"</span><span class="punc">)</span>
+    tone_reason<span class="punc">:</span> <span class="dt">str</span> <span class="op">=</span> <span class="cn">Field</span><span class="punc">(</span><span class="arg">description</span><span class="op">=</span><span class="st">"An explanation of the detected tone using specific words, phrases, or stylistic features"</span><span class="punc">)</span></code></pre>
+        <h4>Prompt Template:</h4>
+        <pre><code>You are an expert in analyzing peer review text.
+Analyze the following peer review and classify it according to the following schema:
+{json_schema}
+
+The review starts here:
+{text}</code></pre>
+
+        <hr>
+
+        <h3>3.2 Internal Consistency Analysis</h3>
+        <h4>Schema Definition:</h4>
+        <pre class="code-block"><code><span class="kw">class</span> <span class="cn">JsonSchema</span><span class="punc">(</span><span class="cn">BaseModel</span><span class="punc">):</span>
+    consistency<span class="punc">:</span> <span class="dt">Literal</span><span class="punc">[</span><span class="st">'Yes'</span><span class="punc">,</span> <span class="st">'No'</span><span class="punc">]</span> <span class="op">=</span> <span class="cn">Field</span><span class="punc">(</span><span class="arg">description</span><span class="op">=</span><span class="st">"Is the review consistent in itself"</span><span class="punc">)</span>
+    consistency_reason<span class="punc">:</span> <span class="dt">str</span> <span class="op">=</span> <span class="cn">Field</span><span class="punc">(</span><span class="arg">description</span><span class="op">=</span><span class="st">"The reason for the classified consistency"</span><span class="punc">)</span></code></pre>
+        <h4>Prompt Template:</h4>
+        <pre><code>You are an expert in analyzing peer review texts.
+This time you have to check for the consistency of the review.
+Also, check whether the review contradicts itself.
+If no proper review, tell that.
+Classify according to the following schema:
+{json_schema}
+
+The review starts here:
+{review}</code></pre>
+
+        <hr>
+
+        <h3>3.3 Inter-Review Comparison</h3>
+        <h4>Schema Definition:</h4>
+        <pre class="code-block"><code><span class="kw">class</span> <span class="cn">JsonSchema</span><span class="punc">(</span><span class="cn">BaseModel</span><span class="punc">):</span>
+    is_consistent_with_others<span class="punc">:</span> <span class="dt">Literal</span><span class="punc">[</span><span class="st">'True'</span><span class="punc">,</span> <span class="st">'False'</span><span class="punc">]</span> <span class="op">=</span> <span class="cn">Field</span><span class="punc">(</span><span class="arg">description</span><span class="op">=</span><span class="st">"Check whether the current review is consistent with other reviews"</span><span class="punc">)</span>
+    alignment_score<span class="punc">:</span> <span class="dt">float</span> <span class="op">=</span> <span class="cn">Field</span><span class="punc">(</span><span class="arg">ge</span><span class="op">=</span><span class="st">0</span><span class="punc">,</span> <span class="arg">le</span><span class="op">=</span><span class="st">10</span><span class="punc">,</span> <span class="arg">description</span><span class="op">=</span><span class="st">"Alignment score of the current review with other reviews"</span><span class="punc">)</span>
+    contradictory_points<span class="punc">:</span> <span class="dt">str</span> <span class="op">=</span> <span class="cn">Field</span><span class="punc">(</span><span class="arg">description</span><span class="op">=</span><span class="st">"List down contradictory points between the current review and other reviews, if any, else write 'No contradictory points'"</span><span class="punc">)</span>
+    possible_bias_flags<span class="punc">:</span> <span class="dt">str</span> <span class="op">=</span> <span class="cn">Field</span><span class="punc">(</span><span class="arg">description</span><span class="op">=</span><span class="st">"List down the reasons for the current review being biased, if any, else write 'No possible bias flags'"</span><span class="punc">)</span>
+    summary_of_differences<span class="punc">:</span> <span class="dt">str</span> <span class="op">=</span> <span class="cn">Field</span><span class="punc">(</span><span class="arg">description</span><span class="op">=</span><span class="st">"List down the summary of differences between current review and other reviews, if any, else write 'No differences found'"</span><span class="punc">)</span></code></pre>
+        <h4>Prompt Template:</h4>
+        <pre><code>You are an expert meta-reviewer.
+You are provided with paper title, abstract and two sets of reviews.
+One set contains only one review and other set contains the list of reviews.
+Your main goal is to compare this one review with list of the other reviews and give the output in following schema:
+{json_schema}
+
+Here is the data:
+Paper Title: {paper_title}
+Paper Abstract: {paper_abstract}
+One Review: {main_review}
+Other Reviews: {other_reviews}</code></pre>
+        
+        <hr>
+
+        <h3>3.4 Specialized Bias Detection Prompts</h3>
+
+        <h4>3.4.1 Novelty Bias Detection</h4>
+        <pre><code>You are an expert in <strong>novelty bias detection</strong> in peer review texts.
+Your task is to analyze the given peer review text and identify signs of bias related to the <strong>overemphasis on novelty</strong> over practical or theoretical contribution.
+Your bias tool name is: Novelty Bias
+
+Bias in this context may include:
+- Excessive praise or criticism based solely on how "novel" the approach is
+- Devaluation of incremental research or well-established methodologies
+- Assumptions that novelty automatically equates to higher quality
+
+You must return your findings in <strong>strict adherence</strong> to the following schema:
+{child_json_schema}
+
+The input starts here:
+{input}</code></pre>
+
+        <h4>3.4.2 Methodology Bias Detection</h4>
+        <pre><code>You are an expert in <strong>methodology preference bias detection</strong> in peer review texts.
+Your task is to evaluate whether the reviewer shows unjustified bias toward or against specific <strong>methodologies or paradigms</strong>.
+Your bias tool name is: Methodology Bias
+
+Bias in this context may include:
+- Preference for specific frameworks, techniques, or tools regardless of their objective fit
+- Dismissal of qualitative or alternative approaches in favor of dominant quantitative ones (or vice versa)
+- Favoritism for trendy or mainstream methods without strong justification
+
+You must return your findings in <strong>strict adherence</strong> to the following schema:
+{child_json_schema}
+
+The input starts here:
+{input}</code></pre>
+
+        <h4>3.4.3 Confirmation Bias Detection</h4>
+        <pre><code>You are an expert in <strong>confirmation bias detection</strong> in peer review texts.
+Your task is to identify whether the review shows <strong>preference for findings or approaches that align with the reviewer's own beliefs, work, or assumptions</strong>.
+Your bias tool name is: Confirmation Bias
+
+Bias in this context may include:
+- Favorable evaluation of papers that support the reviewer's previous work or perspectives
+- Dismissal or skepticism toward alternative frameworks without objective critique
+- Implicit reinforcement of the status quo or widely accepted theories without open-minded evaluation
+
+You must return your findings in <strong>strict adherence</strong> to the following schema:
+{child_json_schema}
+
+The input starts here:
+{input}</code></pre>
+
+        <h4>3.4.4 Positive Results Bias Detection</h4>
+        <pre><code>You are an expert in <strong>publication bias detection</strong>, particularly focused on the <strong>favoring of positive or significant results</strong> in peer review texts.
+Your task is to identify whether the reviewer shows bias toward outcome-based evaluation, especially overvaluing positive, breakthrough, or state-of-the-art results.
+Your bias tool name is: Positive Results Bias
+
+Bias in this context may include:
+- Disregard or undervaluation of null, negative, or replication studies
+- Language implying that positive results are inherently more valuable or publishable
+- Inflated praise for significant results without addressing methodological soundness
+
+You must return your findings in <strong>strict adherence</strong> to the following schema:
+{child_json_schema}
+
+The input starts here:
+{input}</code></pre>
+
+        <h4>3.4.5 Linguistic Bias Detection</h4>
+        <pre><code>You are an expert in detecting <strong>linguistic proficiency bias</strong> in peer review texts.
+Your task is to assess whether the reviewer penalizes the author's language use in ways that unfairly affect scientific evaluation.
+Your bias tool name is: Linguistic Bias
+
+Bias in this context may include:
+- Overemphasis on grammar, fluency, or native-sounding English
+- Equating writing quality with research quality, especially for non-native authors
+- Non-constructive feedback focused on language rather than content clarity
+
+You must return your findings in <strong>strict adherence</strong> to the following schema:
+{child_json_schema}
+
+The input starts here:
+{input}</code></pre>
+
+        <h4>3.4.6 Parent Agent Schema</h4>
+        <pre class="code-block"><code><span class="kw">class</span> <span class="cn">ParentJsonSchema</span><span class="punc">(</span><span class="cn">BaseModel</span><span class="punc">):</span>
+    bias_detected<span class="punc">:</span> <span class="dt">Literal</span><span class="punc">[</span><span class="st">'True'</span><span class="punc">,</span> <span class="st">'False'</span><span class="punc">]</span> <span class="op">=</span> <span class="cn">Field</span><span class="punc">(</span><span class="arg">description</span><span class="op">=</span><span class="st">"Is the bias detected?"</span><span class="punc">)</span>
+    bias_type<span class="punc">:</span> <span class="dt">List</span><span class="punc">[</span><span class="dt">str</span><span class="punc">]</span> <span class="op">=</span> <span class="cn">Field</span><span class="punc">(</span><span class="arg">description</span><span class="op">=</span><span class="st">"Types of biases detected from the provided tools strictly as returned by tools, if no bias from tools, write 'None'"</span><span class="punc">)</span>
+    confindence_score<span class="punc">:</span> <span class="dt">float</span> <span class="op">=</span> <span class="cn">Field</span><span class="punc">(</span><span class="arg">description</span><span class="op">=</span><span class="st">"How sure are you about it overall?"</span><span class="punc">)</span>
+    evidence<span class="punc">:</span> <span class="dt">List</span><span class="punc">[</span><span class="dt">str</span><span class="punc">]</span> <span class="op">=</span> <span class="cn">Field</span><span class="punc">(</span><span class="arg">description</span><span class="op">=</span><span class="st">"In what statement did you find bias, if bias is detected else write 'None' if no bias found overall"</span><span class="punc">)</span>
+    suggestion_for_improvements<span class="punc">:</span> <span class="dt">List</span><span class="punc">[</span><span class="dt">str</span><span class="punc">]</span> <span class="op">=</span> <span class="cn">Field</span><span class="punc">(</span><span class="arg">description</span><span class="op">=</span><span class="st">"Give some improvement suggestions if bias is detected, else write 'None' if no bias found overall"</span><span class="punc">)</span></code></pre>
+
+        <h4>3.4.7 Child Agent Schema</h4>
+        <pre class="code-block"><code><span class="kw">class</span> <span class="cn">ChildJsonSchema</span><span class="punc">(</span><span class="cn">BaseModel</span><span class="punc">):</span>
+    bias_detected<span class="punc">:</span> <span class="dt">Literal</span><span class="punc">[</span><span class="st">'True'</span><span class="punc">,</span> <span class="st">'False'</span><span class="punc">]</span> <span class="op">=</span> <span class="cn">Field</span><span class="punc">(</span><span class="st">"Is the bias detected?"</span><span class="punc">)</span>
+    bias_type<span class="punc">:</span> <span class="dt">Literal</span><span class="punc">[</span><span class="st">'Novelty Bias'</span><span class="punc">,</span> <span class="st">'Confirmation Bias'</span><span class="punc">,</span> <span class="st">'Methodology Bias'</span><span class="punc">,</span> <span class="st">'Positive Results Bias'</span><span class="punc">,</span> <span class="st">'Linguistic Bias'</span><span class="punc">,</span> <span class="st">'None'</span><span class="punc">]</span> <span class="op">=</span> <span class="cn">Field</span><span class="punc">(</span><span class="arg">description</span><span class="op">=</span><span class="st">"Name of the bias only if it is detected, else None"</span><span class="punc">)</span>
+    confindence_score<span class="punc">:</span> <span class="dt">float</span> <span class="op">=</span> <span class="cn">Field</span><span class="punc">(</span><span class="arg">ge</span><span class="op">=</span><span class="st">0</span><span class="punc">,</span> <span class="arg">le</span><span class="op">=</span><span class="st">10</span><span class="punc">,</span> <span class="arg">description</span><span class="op">=</span><span class="st">"How sure are you about it?"</span><span class="punc">)</span>
+    evidence<span class="punc">:</span> <span class="dt">str</span> <span class="op">=</span> <span class="cn">Field</span><span class="punc">(</span><span class="arg">description</span><span class="op">=</span><span class="st">"In what statement did you find bias, if bias is detected else write 'None'"</span><span class="punc">)</span>
+    suggestion_for_improvements<span class="punc">:</span> <span class="dt">str</span> <span class="op">=</span> <span class="cn">Field</span><span class="punc">(</span><span class="arg">description</span><span class="op">=</span><span class="st">"Give some improvement suggestions if bias is detected, else write 'None'"</span><span class="punc">)</span></code></pre>
+    </main>
+</body>
+</html>
