@@ -1,0 +1,30 @@
+Paper Title: Multi-Source Unsupervised Hyperparameter Optimization
+
+Paper Abstract: How can we conduct efficient hyperparameter optimization for a completely new task? In this work, we consider a novel setting, where we search for the optimal hyperparameters for a target task of interest using only unlabeled target task and ‘somewhat relevant’ source task datasets. In this setting, it is essential to estimate the ground-truth target task objective using only the available information. We propose estimators to unbiasedly approximate the ground-truth with a desirable variance property. Building on these estimators, we provide a general and tractable hyperparameter optimization procedure for our setting. The experimental evaluations demonstrate that the proposed framework broadens the applications of automated hyperparameter optimization.
+
+Target Review (Reviewer 3):
+I thank the authors for their answer. However I want to challenge the following point \n\n\"the aim of this paper is to obtain the optimal set of hyperparameters\"\n\nHow HPO is generally motivated is: in practice there are many situations where model X or Y is used, but the HPs are suboptimal, or tuning them manually takes a lot of time or effort. So the general aim for supervised ML is to produce a good model according to some metric, and one way to improve many of the best models (the hyperparameters) is by HPO.\n\nWe should not forget the overall goal (providing a good model), when looking at the subgoal (finding good HPs to further improve a model). The final goal in the task described in the paper appears to be to provide a regression model on unlabeled data, where labeled transfer learning data is not available, but labeled source tasks are. I don't understand why it is not simply framed as thus, and then (if it is the case) motivate why HPO is important in that setting.\n\nOnce the problem is framed as such, better baselines (that do not need to use HPO) can come to mind. For example, just train a model for each source task, and predict their average or median, on the target task. A slight variation: train a single model where the source task is one hot encoded as a feature; then at prediction again one can use the mean or median of what would be the prediction for the various source tasks. An even simpler idea: concatenate all source tasks and just train a model on these, use the obtained model directly for predicting on the target. (Or is this Naive? My understanding from the paper is that only the HP configuration found this way is used, and then a new model is trained only using the target dataset and f_hat as an objective, but I found the section \"Experimental Procedure\" hard to follow). In each of these cases there is no need to perform HPO, just either use the default parameters or perform HPO on the source tasks.
+
+Tone and Sentiment Analysis:
+Sentiment: Negative
+Sentiment Reason: The reviewer challenges the paper's aim, questions the framing of the problem, and suggests alternative simpler approaches that do not require HPO, indicating a negative stance.
+Tone: Critical
+Tone Reason: Phrases like 'I want to challenge the following point', 'I don't understand why it is not simply framed as thus', and 'I found the section "Experimental Procedure" hard to follow' show a critical tone.
+
+Internal Consistency Check:
+Consistent_in_itself: True
+Consistency_reason: The reviewer maintains a consistent critical viewpoint throughout the review, challenging the authors' framing of the problem and suggesting alternative approaches. The reviewer's argument is logically coherent, as they question the primary goal stated by the authors, propose reframing the problem, and then suggest simpler baselines that do not require Hyperparameter Optimization (HPO), thus maintaining internal logical consistency.
+
+Inter-Review Comparison:
+is_consistent_with_others: False
+alignment_score: 2
+contradictory_points: The target review questions the motivation behind the paper's framing as a hyperparameter optimization problem, suggesting it should be framed as an unsupervised learning problem. Other reviews acknowledge the novelty and significance of the paper's approach to hyperparameter optimization.
+possible_bias_flags: The target reviewer appears to have a different understanding of the paper's contributions and may be biased towards viewing it as an unsupervised learning paper rather than a hyperparameter optimization one.
+summary_of_differences: The target review is more critical and focuses on the framing of the problem, suggesting alternative baselines and questioning the need for hyperparameter optimization. Other reviews are generally positive, highlighting the paper's novelty, clarity, and rigorous evaluation, despite some suggestions for additional experiments and baselines.
+
+Bias Detection:
+bias_detected: True
+bias_types: ['Confirmation Bias']
+confidence_score: 8
+evidence: The reviewer challenges the paper's framing as a hyperparameter optimization problem, suggesting it should be viewed as an unsupervised learning problem. The reviewer proposes alternative baselines that do not require HPO, indicating a potential preconceived notion about the paper's contribution.
+suggestion_for_improvements: The reviewer should consider the authors' perspective on the problem framing and the specific challenges of hyperparameter optimization in the context provided. Acknowledging the paper's contribution to HPO, even if it overlaps with unsupervised learning, could provide a more balanced review.

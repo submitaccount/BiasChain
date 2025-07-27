@@ -1,0 +1,30 @@
+Paper Title: Multi-Source Unsupervised Hyperparameter Optimization
+
+Paper Abstract: How can we conduct efficient hyperparameter optimization for a completely new task? In this work, we consider a novel setting, where we search for the optimal hyperparameters for a target task of interest using only unlabeled target task and ‘somewhat relevant’ source task datasets. In this setting, it is essential to estimate the ground-truth target task objective using only the available information. We propose estimators to unbiasedly approximate the ground-truth with a desirable variance property. Building on these estimators, we provide a general and tractable hyperparameter optimization procedure for our setting. The experimental evaluations demonstrate that the proposed framework broadens the applications of automated hyperparameter optimization.
+
+Target Review (Reviewer 4):
+Strong points:\n- Well-written and easy to read and follow.\n- Results show the method does what it promises to.\n\nWeaknesses:\n- While it was easy to follow the paper's rationale, I found it difficult to motivate. Until the final experiment, I was left wondering what kind of application would have these constraints but also where the assumptions would be reasonable. This point I think should be easy to address given a small rework of the intro or perhaps a running example to periodically come back to.\n- After reading about the last experiment, I found myself wondering why this solution is billed as a hyperparameter optimization solution; it sounds to me that the parameters of the model are also being optimized along the way. Again, this is a question of clarification and can easily be addressed.\n- The fact that the Naive method beats the other two baselines and performs comparably to the unbiased proposed method makes me wonder whether (a) these are challenging enough tasks, or (b) those are competitive baselines.\n- The density estimator and the divergence estimator are moving parts the errors of which perhaps warrant quantifying. For example, in both experiments the true labels were known and the authors can measure the error in the divergence estimate.\n\nI'd be happy to increase my score if the above points are addressed.
+
+Tone and Sentiment Analysis:
+Sentiment: Neutral
+Sentiment Reason: The reviewer lists both strong points and weaknesses, indicating a balanced view.
+Tone: Supportive
+Tone Reason: The reviewer states 'I'd be happy to increase my score if the above points are addressed', showing a willingness to support the work with revisions.
+
+Internal Consistency Check:
+Consistent_in_itself: True
+Consistency_reason: The review maintains a consistent critical viewpoint throughout, highlighting both strengths and weaknesses of the paper in a logical and coherent manner. The reviewer provides specific suggestions for improvement and expresses willingness to revise their score if the concerns are addressed, demonstrating internal consistency in their evaluation.
+
+Inter-Review Comparison:
+is_consistent_with_others: False
+alignment_score: 3
+contradictory_points: Target review questions the motivation and application of the method, while others find the problem setting and methodology significant and novel. Others appreciate the clarity and structure of the paper, whereas the target review suggests improvements for clarity.
+possible_bias_flags: Target review is more critical about the experimental setup and baselines compared to others, who generally find the experiments satisfactory despite some limitations.
+summary_of_differences: The target review is more critical and has different concerns compared to the other reviews. While others praise the paper's clarity, significance, and novelty, the target review focuses on potential improvements and questions the motivation and certain aspects of the experimental setup.
+
+Bias Detection:
+bias_detected: True
+bias_types: ['Confirmation Bias']
+confidence_score: 8
+evidence: The target review is more critical about the experimental setup and baselines compared to others. It questions the motivation and certain aspects of the method, indicating a potential preconceived notion or expectation that the paper should have addressed different aspects or provided more straightforward justification.
+suggestion_for_improvements: The reviewer should consider the overall context and novelty of the paper as acknowledged by other reviewers. It's essential to balance the critique with the broader acceptance of the paper's contributions and significance. Providing a more nuanced evaluation that acknowledges both the strengths praised by other reviewers and the weaknesses identified would enhance the review's comprehensiveness.

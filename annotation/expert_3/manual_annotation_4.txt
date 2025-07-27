@@ -1,0 +1,22 @@
+Reviewer 4: 
+            "Strong points:\n- Well-written and easy to read and follow.\n- Results show the method does what it promises to.\n\nWeaknesses:\n- While it was easy to follow the paper's rationale, I found it difficult to motivate. Until the final experiment, I was left wondering what kind of application would have these constraints but also where the assumptions would be reasonable. This point I think should be easy to address given a small rework of the intro or perhaps a running example to periodically come back to.\n- After reading about the last experiment, I found myself wondering why this solution is billed as a hyperparameter optimization solution; it sounds to me that the parameters of the model are also being optimized along the way. Again, this is a question of clarification and can easily be addressed.\n- The fact that the Naive method beats the other two baselines and performs comparably to the unbiased proposed method makes me wonder whether (a) these are challenging enough tasks, or (b) those are competitive baselines.\n- The density estimator and the divergence estimator are moving parts the errors of which perhaps warrant quantifying. For example, in both experiments the true labels were known and the authors can measure the error in the divergence estimate.\n\nI'd be happy to increase my score if the above points are addressed." 
+
+Sentiment Label: Neutral
+Sentiment Reason: The reviewer points out major weaknesses in the paper but acknowledges that they are minor and can be easily worked upon. They seem to allow themselves to be persuaded if a good revision is done by the authors. 
+Tone Label: Supportive
+Tone Reason: While the reviewer highlights certain weaknesses, they also offer simple and elegant solutions to the weaknesses. 
+
+Internal Consistency Label: Yes
+Internal Consistency Reason: There is no inconsistent / contradictory statement in the review. 
+
+Is consistent with others: 
+Alignment Score: 
+Contradictory Points: 
+Possible Bias Flags: 
+Summary of differences: 
+
+Bias Detected: 
+Bias Types: 
+Confidence Score: 
+Evidence: 
+Suggestion for improvements: 

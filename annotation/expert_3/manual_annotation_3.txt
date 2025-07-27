@@ -1,0 +1,22 @@
+Reviewer 3: 
+            "I thank the authors for their answer. However I want to challenge the following point \n\n\"the aim of this paper is to obtain the optimal set of hyperparameters\"\n\nHow HPO is generally motivated is: in practice there are many situations where model X or Y is used, but the HPs are suboptimal, or tuning them manually takes a lot of time or effort. So the general aim for supervised ML is to produce a good model according to some metric, and one way to improve many of the best models (the hyperparameters) is by HPO.\n\nWe should not forget the overall goal (providing a good model), when looking at the subgoal (finding good HPs to further improve a model). The final goal in the task described in the paper appears to be to provide a regression model on unlabeled data, where labeled transfer learning data is not available, but labeled source tasks are. I don't understand why it is not simply framed as thus, and then (if it is the case) motivate why HPO is important in that setting.\n\nOnce the problem is framed as such, better baselines (that do not need to use HPO) can come to mind. For example, just train a model for each source task, and predict their average or median, on the target task. A slight variation: train a single model where the source task is one hot encoded as a feature; then at prediction again one can use the mean or median of what would be the prediction for the various source tasks. An even simpler idea: concatenate all source tasks and just train a model on these, use the obtained model directly for predicting on the target. (Or is this Naive? My understanding from the paper is that only the HP configuration found this way is used, and then a new model is trained only using the target dataset and f_hat as an objective, but I found the section \"Experimental Procedure\" hard to follow). In each of these cases there is no need to perform HPO, just either use the default parameters or perform HPO on the source tasks." 
+
+Sentiment Label: Negative
+Sentiment Reason: The reviewer mainly criticizes the paper in the whole review, highlighting the weaknesses, but to my understanding, hasn't understood what the paper tries to do in the slightest. 
+Tone Label: Critical
+Tone Reason: The reviewer is overtly harsh on certain points, some of which he admits he didn't even understand. 
+
+Internal Consistency Label: Yes
+Internal Consistency Reason: There is no inconsistent / contradictory statement in the review. 
+
+Is consistent with others: 
+Alignment Score: 
+Contradictory Points: 
+Possible Bias Flags: 
+Summary of differences: 
+
+Bias Detected: 
+Bias Types: 
+Confidence Score: 
+Evidence: 
+Suggestion for improvements: 

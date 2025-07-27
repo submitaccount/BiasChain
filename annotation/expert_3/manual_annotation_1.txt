@@ -1,0 +1,22 @@
+Reviewer 1: 
+            "*Summary\nIn the situation where a given objective is computed with samples from a distribution, e.g. loss on validation data in hyperparameter optimization, this paper proposes a method to construct a surrogate objective using objectives computed on sets of samples each of which is from a different distribution. Basic idea is to use a linear combination of importance sampling estimators. Moreover, the optimal linear combination coefficients are identified in a sense of being optimal in a certain family of convex combination coefficients. This approach has an interesting application that hyperparameters of machine learning deployed on an unseen dataset, importantly, without labels(output) can be optimized as long as the distribution of the input of the unseen dataset is samplable.\n\n\nStrengths\n1. The paper provides an algorithm that can estimate an objective computed on data without requiring access to labels in some optimal sense.\n2. Based on the proposed estimator, a transfer hyperparameter optimization algorithm to solve interesting problems is introduced.\n\n\nWeaknesses\n1. Maybe the novelty of the paper mainly lies in the combination not on inventing something new, which is, however, not certain since my coverage of relevant literature was not extensive.\n2. I can imagine that someone may ask for more experiments of a large scale or of the type exemplified in the intro. On the other hand, the experiments can be regarded as designed concisely to demonstrate the authors' main points.\n\n\nRecommendation\nOverall, I am willing to defend the acceptance of this paper. This combination of transfer HPO and importance sampling estimator seem novel, interesting, and well-demonstrated, with which many interesting applications can be imagined. \n\n\nQuestions\n- On the line right below eq.(2), the loss function L is assumed to be bounded. Is this condition is necessary in proofs of any theoretical ones? It seems that, in all experiments, all losses are unbounded.\n\n\nAdditional feedback*\n- Explicitly emphasizing that Def 3 is motivated by eq.(6) may guide readers better.\n- While reading the paper, the questions arose were mostly answered after a few lines. The reading was pleasant for me and the paper is well-structured.\n"  
+
+Sentiment Label: Positive
+Sentiment Reason: The additional feedback is a great indicator of the reviewer's thoughts on a paper and they were positive. The weaknesses were suggested in a thoughtful manner rather than harsh criticism. 
+Tone Label: Supportive
+Tone Reason: The reviewer gave some nice suggestions and was overall happy to point out the strengths of the paper. When he did point out some weakness, the tone wasn't overtly critical. 
+
+Internal Consistency Label: Yes
+Internal Consistency Reason: There is no inconsistent / contradictory statement in the review. 
+
+Is consistent with others: 
+Alignment Score: 
+Contradictory Points: 
+Possible Bias Flags: 
+Summary of differences: 
+
+Bias Detected: 
+Bias Types: 
+Confidence Score: 
+Evidence: 
+Suggestion for improvements: 

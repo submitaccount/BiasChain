@@ -1,0 +1,52 @@
+Paper Title: Multi-Source Unsupervised Hyperparameter Optimization
+
+Paper Abstract: How can we conduct efficient hyperparameter optimization for a completely new task? In this work, we consider a novel setting, where we search for the optimal hyperparameters for a target task of interest using only unlabeled target task and ‘somewhat relevant’ source task datasets. In this setting, it is essential to estimate the ground-truth target task objective using only the available information. We propose estimators to unbiasedly approximate the ground-truth with a desirable variance property. Building on these estimators, we provide a general and tractable hyperparameter optimization procedure for our setting. The experimental evaluations demonstrate that the proposed framework broadens the applications of automated hyperparameter optimization.
+
+Target Review: "The paper introduces multi‑source unsupervised hyperparameter optimization (MSU‑HPO), a novel BO framework where a range of related tasks are available but labels cannot be accessed for the target task. As ground truth on the target task is unavailable, the work introduces two estimators to approximate the target task objective. This enables HPO to be run to optimize the hyperparameters on the target task, converging faster to a good hyperparameter configuration.
+
+Positive
+
+1. *Significance.* To my knowledge, this is the first paper to investigate a transfer learning setting for HPO where labels are unavailable for the target task. This is of interest in several practical applications (e.g., advertising, as the authors discuss). The exploration of a new problem together with the introduction of principled estimators make both the paper's goal and methodology significant.  
+2. *Clarity.* The paper was a pleasure to read. Very clear and well structured. I am also confident about reproducibility as enough details about the algorithm and experimental setup are provided.  
+3. *Rigorous evaluation.* I appreciated the solid theoretical analysis paired with fully‑controlled synthetic experiments where the degree of task similarity can be regulated and results compared against ground truth. All figures are based on multiple runs and have clearly detailed error bars.
+
+Negative
+
+1. *Easy experiments.* The experiments are run on synthetic data and on real‑data with only two ML models (SVM and LightGBM). Tuning more diverse model classes (e.g., neural networks) and higher‑dimensional HP spaces would strengthen the empirical case.  
+2. *Not many baselines.* The main baselines are LI and DISTBO. Additional comparisons—e.g. meta‑learning warm‑starts (Feurer et al., AAAI 2015) or search‑space pruning methods (Wistuba et al., 2015)—would place the method in broader context.
+
+Overall, I am inclined towards accepting this paper due to the rigorous theoretical evaluation, the significance of the problem, and the satisfactory experimental results, though more baselines and challenging scenarios could make the case even stronger.
+
+Additional questions  
+a. How does the proposed approach compare to baselines based purely on initialization or search‑space learning?  
+b. Would re‑running experiments with varied prior evaluation budgets change the relative performance of the estimators?  
+c. Given the weaker performance of the unbiased estimator, would focusing the narrative on the variance‑reduced version improve clarity?  
+d. Will code be released?
+
+Typos:  
+1. Page 12: “omited” → “omitted”  
+2. Figure 1b: “Comapring” → “Comparing”
+
+Tone and Sentiment Analysis:
+"Sentiment": "Positive",
+"Sentiment_reason": "Highlights novel contributions and rigorous evaluation alongside constructive critique.",
+"Tone": "Balanced",
+"Tone_reason": "Equally emphasizes strengths and weaknesses in a structured manner."
+
+Internal Consistency Check:
+"Consistent_in_itself": true,
+"Consistency_reason": "Follows a clear pros‑and‑cons format and logical flow from praise to suggestions."
+
+Inter-Review Comparison:
+"is_consistent_with_others": true,
+"alignment_score": 4/5,
+"contradictory_points": "Echoes peers’ concerns about baselines and experimental depth but offers richer methodological praise.",
+"possible_bias_flags": "None",
+"summary_of_differences": "Provides both detailed positive appraisal and specific negative suggestions more comprehensively than shorter reviews."
+
+Bias Detection:
+"bias_detected": false,
+"bias_types": [],
+"confidence_score": 9,
+"evidence": "Delivers substantive, well‑justified feedback without dismissive or overly critical language.",
+"suggestion_for_improvements": "Consider including one concrete additional baseline and a neural‑network case study to address experiment diversity."

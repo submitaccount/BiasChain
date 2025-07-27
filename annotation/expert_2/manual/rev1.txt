@@ -1,0 +1,49 @@
+Paper Title: Multi-Source Unsupervised Hyperparameter Optimization
+
+Paper Abstract: How can we conduct efficient hyperparameter optimization for a completely new task? In this work, we consider a novel setting, where we search for the optimal hyperparameters for a target task of interest using only unlabeled target task and ‘somewhat relevant’ source task datasets. In this setting, it is essential to estimate the ground-truth target task objective using only the available information. We propose estimators to unbiasedly approximate the ground-truth with a desirable variance property. Building on these estimators, we provide a general and tractable hyperparameter optimization procedure for our setting. The experimental evaluations demonstrate that the proposed framework broadens the applications of automated hyperparameter optimization.
+
+Target Review: "*Summary
+In the situation where a given objective is computed with samples from a distribution, e.g. loss on validation data in hyperparameter optimization, this paper proposes a method to construct a surrogate objective using objectives computed on sets of samples each of which is from a different distribution. Basic idea is to use a linear combination of importance sampling estimators. Moreover, the optimal linear combination coefficients are identified in a sense of being optimal in a certain family of convex combination coefficients. This approach has an interesting application that hyperparameters of machine learning deployed on an unseen dataset, importantly, without labels(output) can be optimized as long as the distribution of the input of the unseen dataset is samplable.
+
+Strengths
+1. The paper provides an algorithm that can estimate an objective computed on data without requiring access to labels in some optimal sense.
+2. Based on the proposed estimator, a transfer hyperparameter optimization algorithm to solve interesting problems is introduced.
+
+Weaknesses
+1. Maybe the novelty of the paper mainly lies in the combination not on inventing something new, which is, however, not certain since my coverage of relevant literature was not extensive.
+2. I can imagine that someone may ask for more experiments of a large scale or of the type exemplified in the intro. On the other hand, the experiments can be regarded as designed concisely to demonstrate the authors' main points.
+
+Recommendation
+Overall, I am willing to defend the acceptance of this paper. This combination of transfer HPO and importance sampling estimator seem novel, interesting, and well-demonstrated, with which many interesting applications can be imagined.
+
+Questions
+- On the line right below eq.(2), the loss function L is assumed to be bounded. Is this condition is necessary in proofs of any theoretical ones? It seems that, in all experiments, all losses are unbounded.
+
+Additional feedback*
+- Explicitly emphasizing that Def 3 is motivated by eq.(6) may guide readers better.
+- While reading the paper, the questions arose were mostly answered after a few lines. The reading was pleasant for me and the paper is well-structured."
+
+Tone and Sentiment Analysis:
+"Sentiment": "Positive",
+"Sentiment_reason": "The review highlights novel contributions and defends acceptance.",
+"Tone": "Balanced",
+"Tone_reason": "Offers both strengths and weaknesses in a structured way."
+
+Internal Consistency Check:
+"Consistent_in_itself": true,
+"Consistency_reason": "Maintains a clear structure: summary, strengths, weaknesses, recommendation, questions."
+
+Inter-Review Comparision:
+"is_consistent_with_others": true,
+"alignment_score": 4/5,
+"contradictory_points": "This review is enthusiastic about acceptance, while some peers raise stronger doubts.",
+"possible_bias_flags": "None",
+"summary_of_differences": "More detailed theoretical and experimental critique than the brief target in Review 2."
+
+Bias Detection:
+"bias_detected": false,
+"bias_types": [],
+"confidence_score": 9,
+"evidence": "Structured, balanced feedback with no unjustified language.",
+"suggestion_for_improvements": "Could suggest specific larger‐scale experiments to address concerns."
+
